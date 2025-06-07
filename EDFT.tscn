@@ -81,7 +81,6 @@ emoji_menu_enabled = false
 right_icon = ExtResource("4_hxddd")
 caret_blink = true
 script = ExtResource("4_js2is")
-login_disabled = null
 
 [node name="RightTypin" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_ms0es")

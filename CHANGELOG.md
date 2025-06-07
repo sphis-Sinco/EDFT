@@ -6,10 +6,12 @@
 ### Added
 - File organization in the assets folder
 - Running on Godot v... string
+- CLEAR command
 
 ### Changed
 - Files are no longer hard-coded
 - GDFT version string now is softcoded
+- The help command text is no longer soft-coded
 
 ### Fixed
 - Full-screen breaking the camera

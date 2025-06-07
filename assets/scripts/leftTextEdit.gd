@@ -60,7 +60,7 @@ func _on_text_submitted(new_text):
 	
 	match input:
 		"help":
-			response = Global.SIDE_SPACING_10+' HELP '+Global.SIDE_SPACING_10+'\n'+Global.COMMAND_HELP
+			response = Global.SIDE_SPACING_10+' HELP '+Global.SIDE_SPACING_10+'\n'+Global.load_from_file('assets/commands/help.txt')
 		"list":
 			response = Global.SIDE_SPACING_10+' DIRECTORY '+Global.SIDE_SPACING_10
 			for item in Global.DIRECTORY:
@@ -157,6 +157,9 @@ func _on_text_submitted(new_text):
 									response = errortxt
 			else:
 				response = 'Missing first argument'
+		"clear":
+			response = 'Screen cleared'
+			leftText.text = ''
 		_:
 			if unknown_cmd and unknown_cmd.stream:
 				if unknown_cmd.playing:

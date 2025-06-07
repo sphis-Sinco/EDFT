@@ -12,7 +12,6 @@ func load_from_file(path):
 
 # command responses
 const COMMAND_UNKNOWN = '"$cmd" is not a known command or has not been implemented, type "help" for a list of commands'
-var COMMAND_HELP = 'HELP - Send a list of commands\nLIST - Print a list of all the files in the current directory\nOPEN - Open a directory or file\nCLOSE - Close the file open on the right panel\nBACK - Head to the home directory'
 const COMMAND_LIST = ''
 const COMMAND_LOGIN_SUCCESS = 'Successfully logged into $acc\'s account'
 const COMMAND_LOGIN_FAILURE = 'Failed to log into $acc\'s account'

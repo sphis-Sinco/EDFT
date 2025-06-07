@@ -6,6 +6,9 @@
 ### Added
 - File organization in the assets folder
 
+### Fixed
+- Full-screen breaking the camera
+
 
 ## [1.0.0] - 2025-06-07
 ### Added

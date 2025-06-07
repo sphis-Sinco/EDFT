@@ -5,6 +5,7 @@
 ## [1.2.0] - 2025-06-07
 ### Added
 - More code organization
+- Inital right panel message mentioning that you can type "help" for a list of commands
 
 ### Changed
 - When you are missing command arguments it will say you are missing X Y arguments, X argument, etc

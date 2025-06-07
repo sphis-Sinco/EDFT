@@ -38,6 +38,10 @@ var history_entry = -1
 
 var tween
 
+func _ready():
+	rightText.text = 'Type "Help" for a list of commands.'
+	tween_visible_ratio()
+
 func _input(event):
 	if event is InputEventKey and event.pressed and !event.echo:
 		_play_sound(left_type)
@@ -189,7 +193,7 @@ func tween_visible_ratio(text_node = rightText, duration = 3.0, delay = 1.0) -> 
 		typing_sound.play()
 
 	if delay > 0:
-		call_timer(delay, "_start_tween", [text_node, duration])
+		call_timer(delay, Callable(self, "_start_tween").bind(text_node, duration))
 	else:
 		_start_tween(text_node, duration)
 
@@ -203,16 +207,16 @@ func _on_tween_finished():
 		typing_sound.stop()
 
 	if rightText.text == Global.load_from_file("assets/files/truth.txt"):
-		call_timer(30, "end_game")
+		call_timer(30, Callable(self, "end_game"))
 #endregion
 
-func call_timer(time = 10, endfunc = '', args = []):
+func call_timer(time = 10, endfunc = Callable(self, "")):
 	var timer = Timer.new()
 	timer.wait_time = time
 	timer.one_shot = true
 	add_child(timer)
 	timer.start()
-	timer.timeout.connect(Callable(self, endfunc).bind(args))
+	timer.timeout.connect(endfunc)
 	
 func end_game():
 	print_rich("It's over")

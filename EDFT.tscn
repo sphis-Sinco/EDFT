@@ -50,6 +50,21 @@ offset_right = 1280.0
 offset_bottom = 720.0
 color = Color(0, 0, 0, 1)
 
+[node name="LineEdit" type="LineEdit" parent="."]
+offset_top = 656.0
+offset_right = 320.0
+offset_bottom = 688.0
+scale = Vector2(2, 2)
+theme_override_colors/selection_color = Color(0, 1, 0, 1)
+theme_override_colors/caret_color = Color(0, 1, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0, 1, 0, 1)
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+placeholder_text = "Commands go here"
+emoji_menu_enabled = false
+right_icon = ExtResource("4_hxddd")
+caret_blink = true
+script = ExtResource("4_js2is")
+
 [node name="Left" type="RichTextLabel" parent="."]
 offset_right = 640.0
 offset_bottom = 640.0
@@ -66,21 +81,6 @@ offset_bottom = 720.0
 theme_override_colors/default_color = Color(0, 1, 0, 1)
 bbcode_enabled = true
 script = ExtResource("3_js2is")
-
-[node name="LineEdit" type="LineEdit" parent="."]
-offset_top = 656.0
-offset_right = 320.0
-offset_bottom = 688.0
-scale = Vector2(2, 2)
-theme_override_colors/selection_color = Color(0, 1, 0, 1)
-theme_override_colors/caret_color = Color(0, 1, 0, 1)
-theme_override_colors/font_placeholder_color = Color(0, 1, 0, 1)
-theme_override_colors/font_color = Color(0, 1, 0, 1)
-placeholder_text = "Commands go here"
-emoji_menu_enabled = false
-right_icon = ExtResource("4_hxddd")
-caret_blink = true
-script = ExtResource("4_js2is")
 
 [node name="RightTypin" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_ms0es")

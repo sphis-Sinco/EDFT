@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dchh0lbx2nv0i"]
+[gd_scene load_steps=14 format=3 uid="uid://dchh0lbx2nv0i"]
 
 [ext_resource type="Shader" uid="uid://bfdt70142kbuu" path="res://assets/shaders/crt.gdshader" id="1_yue2c"]
 [ext_resource type="Script" uid="uid://bjil0jn1x81tq" path="res://assets/scripts/leftText.gd" id="2_hicdd"]
@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://crpbbjkx4i8i3" path="res://assets/sounds/key.wav" id="7_unajf"]
 [ext_resource type="AudioStream" uid="uid://btbblrham774d" path="res://assets/sounds/unknown_command.wav" id="8_o3bw6"]
 [ext_resource type="AudioStream" uid="uid://d3c5bh3bu5ljg" path="res://assets/sounds/known_command.wav" id="9_y7wxu"]
+[ext_resource type="Script" uid="uid://dghj7sdg3n5d5" path="res://addons/GamejoltAPI/main.gd" id="10_t7kuc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1wybe"]
 
@@ -94,4 +95,10 @@ stream = ExtResource("8_o3bw6")
 [node name="KnownCmd" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("9_y7wxu")
 
+[node name="GameJoltAPI" type="HTTPRequest" parent="."]
+script = ExtResource("10_t7kuc")
+data_path = "res://assets/gamejoltAPI.json"
+metadata/_custom_type_script = "uid://dghj7sdg3n5d5"
+
 [connection signal="text_submitted" from="LineEdit" to="LineEdit" method="_on_text_submitted"]
+[connection signal="gamejolt_request_completed" from="GameJoltAPI" to="LineEdit" method="_on_game_jolt_api_gamejolt_request_completed"]

@@ -2,6 +2,9 @@ extends LineEdit
 
 var cheats = false
 
+@onready var game_jolt_api = $"../GameJoltAPI"
+@export var login_disabled = false
+
 @onready var leftText = $"../Left"
 @onready var rightText = $"../Right"
 
@@ -13,6 +16,9 @@ var cheats = false
 
 var history = []
 var history_entry = -1
+
+func _ready():
+	game_jolt_api.gamejolt_request_completed.connect(_on_game_jolt_api_gamejolt_request_completed)
 
 func _input(event):
 	if event is InputEventKey and event.pressed and !event.echo:
@@ -87,7 +93,7 @@ func _on_text_submitted(new_text):
 				if cantfind:
 					response += ' doesn\'t exist'
 			else:
-				response = 'Missing first argument'
+				response = Global.MISSING_X_ARGS
 		"close":
 			response = Global.COMMAND_CLOSE
 			rightText.text = ""
@@ -156,23 +162,40 @@ func _on_text_submitted(new_text):
 								'sys', 'dump':
 									response = errortxt
 			else:
-				response = 'Missing first argument'
+				response = Global.MISSING_X_ARGS
 		"clear":
 			response = 'Screen cleared'
 			leftText.text = ''
+		"login":
+			response = ''
+			if args.size() > 1:
+				if args.size() > 2:
+					game_jolt_api.user_auth(args[1], args[2])
+					response = 'Attempting login...\nBe patient please.'
+				else:
+					response = Global.MISSING_Y_ARGS
+			else:
+				response = Global.MISSING_XY_ARGS
 		_:
-			if unknown_cmd and unknown_cmd.stream:
+			play_unknown_cmd()
+	
+	if not unknown_cmd.playing:
+		play_known_cmd()
+	
+	leftText.add_text('\n'+response)
+
+func play_unknown_cmd():
+	if unknown_cmd and unknown_cmd.stream:
 				if unknown_cmd.playing:
 					unknown_cmd.stop()
 				unknown_cmd.play()
-	
-	if not unknown_cmd.playing:
-		if known_cmd and known_cmd.stream:
+func play_known_cmd():
+	if known_cmd and known_cmd.stream:
 				if known_cmd.playing:
 					known_cmd.stop()
 				known_cmd.play()
-	
-	leftText.add_text('\n'+response)
+
+var user_authenticated = false
 
 @onready var typing_sound = $"../RightTypin"
 
@@ -225,3 +248,32 @@ func end_game():
 	
 	rightText.text = Global.load_from_file('assets/credits.txt')
 	tween_visible_ratio()
+
+func _on_game_jolt_api_gamejolt_request_completed(type, message):
+	var response = 'Unset gamejolt API response'
+	
+	match type:
+		'/users/auth/':
+			user_authenticated = message['success']
+			if user_authenticated:
+				print('Logged in!')
+				response = 'Successfully logged into your GameJolt account, '+game_jolt_api.get_username()
+				login_disabled = true
+				game_jolt_api.session_open()
+				play_known_cmd()
+			else:
+				response = 'Failed to log into your GameJolt account.'
+				print('Not logged in. "'+message+'"')
+				play_unknown_cmd()
+			
+		'/trophies/add-achieved/':
+			if message['success']:
+				print("Trophy Achieved!")
+				response = 'Achieved new trophy: "'+'"'
+				play_known_cmd()
+			else:
+				print("Achieve Failed: ", message['message'])
+				response = 'Failed to achieve new trophy'
+				play_unknown_cmd()
+	
+	leftText.add_text('\n'+response)

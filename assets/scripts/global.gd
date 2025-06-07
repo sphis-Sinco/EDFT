@@ -67,6 +67,10 @@ var DIRECTORY = []
 const SIDE_SPACING_20 = '________________________________________'
 var SIDE_SPACING_10 = SIDE_SPACING_20.left(10)
 
+const MISSING_XY_ARGS = 'Missing X and Y arguments'
+const MISSING_X_ARGS = 'Missing X argument'
+const MISSING_Y_ARGS = 'Missing Y argument'
+
 # random
 var ADMIN = false
 var CAN_CHANGE_CLEARANCE = false

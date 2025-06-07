@@ -11,10 +11,11 @@ config_version=5
 [application]
 
 config/name="EDFT"
-config/version="1.1.0"
+config/version="1.2.0"
 run/main_scene="uid://dchh0lbx2nv0i"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="uid://blknly4s5xvqf"
+config/stretch/mode="viewport"
 
 [autoload]
 
@@ -27,6 +28,10 @@ window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="viewport"
 mouse_cursor/custom_image="uid://cxe4a8hpc7umn"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/GamejoltAPI/plugin.cfg")
 
 [gui]
 

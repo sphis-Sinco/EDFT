@@ -1,6 +1,10 @@
 HELP - Send a list of commands
 LIST - Print a list of all the files in the current directory
-OPEN - Open a directory or file
+OPEN X - Open a directory or file
+	 X is the directory or file
 CLOSE - Close the file open on the right panel
 BACK - Head to the home directory
 CLEAR - Clears the screen
+LOGIN X Y - Log into your gamejolt account
+	  X - Username
+	  Y - Token

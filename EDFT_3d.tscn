@@ -1,3 +1,32 @@
-[gd_scene format=3 uid="uid://8rf5fkkyywcj"]
+[gd_scene load_steps=6 format=3 uid="uid://8rf5fkkyywcj"]
+
+[ext_resource type="Shader" uid="uid://bfr1i1dnpj3lj" path="res://assets/shaders/posturized.gdshader" id="1_i5ayu"]
+[ext_resource type="Texture2D" uid="uid://c11y2epvwh88f" path="res://assets/palette.png" id="2_geb3k"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i5ayu"]
+render_priority = 0
+shader = ExtResource("1_i5ayu")
+shader_parameter/TwixelAngle = 45.0
+shader_parameter/PixelSize = 2.035
+shader_parameter/Quantize = false
+shader_parameter/PaletteTexture = ExtResource("2_geb3k")
+shader_parameter/Posterize = true
+shader_parameter/ColorSteps = 16
+
+[sub_resource type="QuadMesh" id="QuadMesh_geb3k"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i5ayu"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.494118, 0.337255, 0.313726, 1)
 
 [node name="EDFT3d" type="Node3D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CanvasLayer"]
+material_override = SubResource("ShaderMaterial_i5ayu")
+mesh = SubResource("QuadMesh_geb3k")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, -7.73485, 0)
+material = SubResource("StandardMaterial3D_i5ayu")

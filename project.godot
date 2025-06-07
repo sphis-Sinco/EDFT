@@ -12,7 +12,7 @@ config_version=5
 
 config/name="EDFT"
 config/version="1.2.0"
-run/main_scene="uid://dchh0lbx2nv0i"
+run/main_scene="uid://7yb6dnbcfhau"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="uid://blknly4s5xvqf"
 config/stretch/mode="viewport"
@@ -31,7 +31,7 @@ mouse_cursor/custom_image="uid://cxe4a8hpc7umn"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/GamejoltAPI/plugin.cfg")
+enabled=PackedStringArray()
 
 [gui]
 

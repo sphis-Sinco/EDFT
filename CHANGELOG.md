@@ -6,6 +6,8 @@
 ### Added
 - More code organization
 - Inital right panel message mentioning that you can type "help" for a list of commands
+- Game intro minigame
+- Terminal flicker intro
 
 ### Changed
 - When you are missing command arguments it will say you are missing X Y arguments, X argument, etc

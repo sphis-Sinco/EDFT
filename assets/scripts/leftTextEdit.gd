@@ -36,11 +36,10 @@ var history = []
 var history_entry = -1
 #endregion
 
-var tween
-
 func _ready():
 	rightText.text = 'Type "Help" for a list of commands.'
-	tween_visible_ratio()
+	Global.typing_sound = typing_sound
+	Global.tween_visible_ratio(rightText)
 
 func _input(event):
 	if event is InputEventKey and event.pressed and !event.echo:
@@ -115,7 +114,7 @@ func _on_text_submitted(new_text):
 			if Global.CAN_DO_ENDING:
 				rightText.text = Global.load_from_file("assets/files/specter_trace.txt")
 				Global.DIRECTORY = Global.DIRECTOR_SPECTOR
-				tween_visible_ratio()
+				Global.tween_visible_ratio(rightText)
 				response = "Secret command unlocked"
 		"run":
 			response = _handle_run(args)
@@ -146,7 +145,7 @@ func _handle_open(args):
 		var parsed = Global.parse_directory_entry(item, false)
 		if parsed[0] == target:
 			rightText.text = parsed[2]
-			tween_visible_ratio()
+			Global.tween_visible_ratio(rightText)
 			found = true
 
 			if parsed[0] == "private" and Global.ADMIN and Global.DIRECTORY == Global.DIRECTORY_HOME_ALT:
@@ -172,7 +171,7 @@ func _handle_run(args):
 			return "specter.trace enabled"
 		"command_test.dump":
 			rightText.text = "[INFO] Executing test command list...\n> home/private/\n> test.commandlist/run_protocol.sh\n> ...\n> specter.trace\n[WARNING] 'specter.trace' is a flagged operation.\n[STATUS] SYSTEM OVERWRITE DETECTED\n[HALT] Execution paused — Administrative input required. Proceed? (Y/N)"
-			tween_visible_ratio()
+			Global.tween_visible_ratio(rightText)
 			return "command_test.dump loaded into memory"
 		"clearance_overrides.sys":
 			return "[LOCKOUT TRIP] clearance_overrides.sys flagged as immutable. Override attempts will be logged and traced."
@@ -182,48 +181,12 @@ func _handle_run(args):
 			return "[ERROR] " + file + ": File not a system filetype"
 #endregion
 
-#region TYPEWRITER EFFECT
-func tween_visible_ratio(text_node = rightText, duration = 3.0, delay = 1.0) -> void:
-	text_node.visible_ratio = 0.0
-
-	if tween and tween.is_running():
-		tween.stop()
-
-	if typing_sound and typing_sound.stream:
-		typing_sound.play()
-
-	if delay > 0:
-		call_timer(delay, Callable(self, "_start_tween").bind(text_node, duration))
-	else:
-		_start_tween(text_node, duration)
-
-func _start_tween(text, duration):
-	tween = create_tween()
-	tween.tween_property(text, "visible_ratio", 1.0, duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
-	tween.connect("finished", Callable(self, "_on_tween_finished"))
-
-func _on_tween_finished():
-	if typing_sound and typing_sound.playing:
-		typing_sound.stop()
-
-	if rightText.text == Global.load_from_file("assets/files/truth.txt"):
-		call_timer(30, Callable(self, "end_game"))
-#endregion
-
-func call_timer(time = 10, endfunc = Callable(self, "")):
-	var timer = Timer.new()
-	timer.wait_time = time
-	timer.one_shot = true
-	add_child(timer)
-	timer.start()
-	timer.timeout.connect(endfunc)
-	
 func end_game():
 	print_rich("It's over")
 	this.editable = false
 	Global.DIRECTORY.clear()
 	rightText.text = Global.load_from_file("assets/credits.txt")
-	tween_visible_ratio()
+	Global.tween_visible_ratio(rightText)
 
 func _play_sound(player):
 	if player and player.stream:

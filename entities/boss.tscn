@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://c61lolblblgxh"]
+
+[ext_resource type="Texture2D" uid="uid://rgjona7ib12e" path="res://assets/images/boss.png" id="1_nqa23"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7lhrj"]
+atlas = ExtResource("1_nqa23")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_etn2v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7lhrj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v85xe"]
+size = Vector2(6, 8)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+scale = Vector2(4, 4)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_etn2v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_v85xe")

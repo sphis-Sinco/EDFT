@@ -127,3 +127,43 @@ func parse_directory_entry(entry, dir = true):
 		return parsedvalue
 	else:
 		return [entry[0], entry[1], filecont, filsize, entry[4]]
+		
+var tween
+var typing_sound
+@onready var line_edit = $LineEdit
+
+#region TYPEWRITER EFFECT
+func tween_visible_ratio(text_node, duration = 3.0, delay = 1.0) -> void:
+	text_node.visible_ratio = 0.0
+
+	if tween and tween.is_running():
+		tween.stop()
+
+	if typing_sound and typing_sound.stream:
+		typing_sound.play()
+
+	if delay > 0:
+		call_timer(delay, Callable(self, "_start_tween").bind(text_node, duration))
+	else:
+		Global._start_tween(text_node, duration)
+
+func _start_tween(text, duration):
+	tween = create_tween()
+	tween.tween_property(text, "visible_ratio", 1.0, duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+	tween.connect("finished", Callable(self, "_on_tween_finished").bind(text))
+
+func _on_tween_finished(text_node):
+	if typing_sound and typing_sound.playing:
+		typing_sound.stop()
+
+	if text_node.text == load_from_file("assets/files/truth.txt"):
+		call_timer(30, Callable(line_edit, "end_game"))
+#endregion
+
+func call_timer(time = 10, endfunc = Callable(self, "")):
+	var timer = Timer.new()
+	timer.wait_time = time
+	timer.one_shot = true
+	add_child(timer)
+	timer.start()
+	timer.timeout.connect(endfunc)

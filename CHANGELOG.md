@@ -3,9 +3,6 @@
 *Changelog created using the [Simple Changelog](https://marketplace.visualstudio.com/items?itemName=tobiaswaelde.vscode-simple-changelog) extension for VS Code.*
 
 ## [1.2.0] - 2025-06-07
-### Added
-- Gamejolt API integration
-
 ### Changed
 - When you are missing command arguments it will say you are missing X Y arguments, X argument, etc
 - The help command shows the arguments requires (X, X Y, etc)

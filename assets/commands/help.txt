@@ -5,6 +5,3 @@ OPEN X - Open a directory or file
 CLOSE - Close the file open on the right panel
 BACK - Head to the home directory
 CLEAR - Clears the screen
-LOGIN X Y - Log into your gamejolt account
-	  X - Username
-	  Y - Token

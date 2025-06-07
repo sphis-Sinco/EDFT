@@ -1,0 +1,9 @@
+CLEARANCE OVERRIDES - INTERNAL USE ONLY  
+------------------------  
+Override_Code_A: [REDACTED]  
+Override_Code_B: [REDACTED]  
+
+!!! ALERT: TRACE PROTOCOL DETECTED  
+> Command 'specter.trace' flagged as irreversible  
+> Status: DISABLED  
+> Attempt override? ACCESS DENIED

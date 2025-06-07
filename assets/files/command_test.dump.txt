@@ -1,0 +1,6 @@
+> home/
+> test.commandlist/run_protocol.sh
+> ...
+> specter.trace
+WARNING: System overwrite detected. Proceed? (Y/N)
+_

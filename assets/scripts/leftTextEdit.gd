@@ -64,12 +64,7 @@ func _on_text_submitted(new_text):
 		"list":
 			response = Global.SIDE_SPACING_10+' DIRECTORY '+Global.SIDE_SPACING_10
 			for item in Global.DIRECTORY:
-				response += '\n['+item[1].to_upper()+'] '+item[0]+' - '
-				if item[3] == null:
-					response += Global.filesize(item[2])
-				else:
-					response += item[3]
-				response += ' - '+item[4]
+				response += '\n'+Global.parse_directory_entry(item)
 		"open":
 			if args.size() > 1:
 				response = '"'+args[1]+'"'
@@ -77,15 +72,18 @@ func _on_text_submitted(new_text):
 				var cantfind = true
 				
 				for item in Global.DIRECTORY:
-					if item[0] == args[1]:
+					var parseditem = Global.parse_directory_entry(item, false)
+					
+					if parseditem[0] == args[1]:
 						cantfind = false
 						response += ' has been opened on the right panel'
-						rightText.text = item[2]
+						rightText.text = parseditem[2]
 						
-						if item[0] == 'private' and Global.ADMIN and Global.DIRECTORY == Global.DIRECTORY_HOME_ALT:
+						if parseditem[0] == 'private' and Global.ADMIN and Global.DIRECTORY == Global.DIRECTORY_HOME_ALT:
 								Global.DIRECTORY = Global.DIRECTORY_PRIVATE
 								
 						tween_visible_ratio()
+						
 				if cantfind:
 					response += ' doesn\'t exist'
 			else:
@@ -129,7 +127,7 @@ func _on_text_submitted(new_text):
 		"specter.trace":
 			if Global.CAN_DO_ENDING:
 				response = "Secret command unlocked"
-				rightText.text = Global.SPECTER_TRACE
+				rightText.text = Global.load_from_file('assets/files/specter_trace.txt')
 				Global.DIRECTORY = Global.DIRECTOR_SPECTOR
 				tween_visible_ratio()
 		"run":
@@ -205,7 +203,7 @@ func _on_tween_finished() -> void:
 	if typing_sound and typing_sound.playing:
 		typing_sound.stop()
 		
-	if rightText.text == Global.FILE_SPECTER_V_TXT:
+	if rightText.text == Global.load_from_file('assets/files/truth.txt'):
 		var timer = Timer.new()
 		timer.wait_time = 30
 		timer.one_shot = true
@@ -222,5 +220,5 @@ func end_game():
 	
 	Global.DIRECTORY = []
 	
-	rightText.text = "Thank you for playing \"EDFT\" by sphis_sinco.\n\nThis was a fun project to work on and I hope I can do more in the future\n\n\n\nCREDITS\n\nsphis_sinco - Main creator\nahopness - CRT shader\nChatGPT - Basically speeding up all of this and giving the idea for the spector.trace command while also assisting in coding\nJFXR and Pixabay - SFX\nGodot - Game Engine\n\nYOU - Playing"
+	rightText.text = Global.load_from_file('assets/credits.txt')
 	tween_visible_ratio()

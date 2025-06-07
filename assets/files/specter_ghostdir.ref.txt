@@ -1,0 +1,7 @@
+GHOSTDIR REFERENCE ENTRY - CLASSIFIED  
+File Ref: /ghostdir/init/init_specter.trc  
+ERROR: Trace protocol mismatch  
+ERROR: Metadata timestamp missing  
+STATUS: Unreachable
+
+Manual trigger required. DO NOT AUTORUN.

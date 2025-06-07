@@ -1,0 +1,15 @@
+Thank you for playing "EDFT" by sphis_sinco.
+
+This was a fun project to work on and I hope I can do more in the future.
+
+
+
+CREDITS
+
+sphis_sinco - Main creator
+ahopness - CRT shader
+ChatGPT - Basically speeding up all of this and giving the idea for the specter.trace command while also assisting in coding
+JFXR and Pixabay - SFX
+Godot - Game Engine
+
+YOU - Playing

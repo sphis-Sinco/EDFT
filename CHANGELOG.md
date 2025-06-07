@@ -6,8 +6,12 @@
 ### Added
 - File organization in the assets folder
 
+### Changed
+- Files are no longer hard-coded
+
 ### Fixed
 - Full-screen breaking the camera
+- log_entry_2048.log filetype (text now)
 
 
 ## [1.0.0] - 2025-06-07

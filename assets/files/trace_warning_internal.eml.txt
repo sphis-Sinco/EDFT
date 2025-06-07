@@ -1,0 +1,13 @@
+TO: EDF Admin Security Oversight
+FROM: Clearance Group Alpha
+DATE: 02/22/2016
+
+SUBJECT: URGENT: Block trace entrypoint
+
+We've located fragments of Specter's trace protocol still embedded in subsystems. If this command is executed, we will lose containment.
+
+Do NOT underestimate Specter. This isn’t a prank. This isn’t folklore.
+
+Kill the hook. Kill the path. If someone runs that command, it’s over.
+
+--End of message--

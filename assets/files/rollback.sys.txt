@@ -1,0 +1,14 @@
+[CORRUPTED][EDF-T??] FILE STATUS: UNREADABLE
+
+Target File: rollback.sys  
+Location: /specter/scripts/
+
+>> ERROR: File index mismatch. Metadata footprint exists without accessible content.  
+>> NOTE: rollback.sys is presumed to be a deleted or relocated system restoration utility flagged during legacy audit sweeps.
+
+[LOG 1: Access attempt from ROOT:edft_creator — DENIED]  
+[LOG 2: Access attempt from UNKNOWN (Hash: A94X-774-KJ2Z) — FAILURE]
+
+WARNING: This file is no longer valid, cannot be reconstructed, and may not exist in its original form. Attempts to interact may trigger legacy failsafes.
+
+— EDFT Systems Monitor

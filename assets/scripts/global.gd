@@ -1,5 +1,15 @@
 extends Node
 
+# funcs
+func save_to_file(path, content):
+	var file = FileAccess.open(path, FileAccess.WRITE)
+	file.store_string(content)
+
+func load_from_file(path):
+	var file = FileAccess.open(path, FileAccess.READ)
+	var content = file.get_as_text()
+	return content
+
 # game info
 const GAME_VERSION = "1.0"
 
@@ -18,67 +28,42 @@ const FILE_EXT_FOLDER = 'FOLDER'
 const FILE_EXT_TEXT = 'TEXT'
 const FILE_EXT_SYSTEM = 'SYSTEM'
 
-var FILE_TEST_MD = 'Hello world\n\nThis is a test on the [b]official EDFT.[/b] 2013 is going to be a good year since its been funded since production started in December of 2012. I\'ve been trying to make it the best terminal for the government to use.\n\nThe inital funding of 1k was enough but [b]they gave 10k![/b] They really are interested in the project and I LOVE it.\n\nI made sure it was simple so that I would only need the 1k but now [b]I feel so much freedom.[/b]\n\nUpdate from 2013. They introduced their own programming team into the project and [i]I\'ve felt so limited,[/i] ironic am I right? I can\'t implement most of the things I\'ve wanted like folders, so sorry, only the home directory, but I\'m sure I can convince them to add it later... right?\n\n2013 Update 2 months later, it\'s June, [b]no.[/b] They\'ve denied folders for some stupid reason? Saying that "it\'s too complicated for something that won\'t be used much", I\'m crushed. I don\'t think I want to be assosiated with this project anymore. I can kinda see what the 10k was for, [i]they planned the whole team thing... didn\'t they?[/i]'
-var FILE_SECRETS_TXT = "This project isn't what you think.\nThere is malicious intent behind it, I've seen the secrets they hide in the code. I see the things they are attempting, the secret projects in the private folder. I can help you. Open the manual, I've modified it.\n\n- Specter V"
 var FILE_PRIVATE_FOLDER = "[ERROR][EDF-T01] ACCESS DENIED: Target directory is locked by Sector Security Protocols.\n\n>> Unable to read contents of folder: /private\n>> Reason: FOLDER LOCKED — ADMIN Clearance Level required.\n\n\nContact Central Command or override with valid credentials."
 var FILE_PRIVATE_FOLDER_GRANTED = "[INFO][EDF-T01] ACCESS GRANTED: Target directory unlocked by Sector Security Protocols.\n\n>> Reading contents of folder: /private\n>> Clearance Level Verified: ADMIN\n\nAccess authorized. Proceed with caution.\n\nContact Central Command for further instructions or audit logs."
-var FILE_MANUAL_MD = "============================================================\n       EARTH DEFENCE FORCE TERMINAL — USER MANUAL\n                 [Revision 4.7 | Internal Use Only]\n============================================================\n\n> ACCESS & CLEARANCE\n\nThe EDFT operates under strict compartmentalized access protocols. Only individuals with [b]ADMIN clearance[/b] are permitted to access secured directories, modify system-level configurations, or deploy classified operations. All access is logged. Unauthorized attempts are punishable under Directive 12-7A.\n\n> HISTORY OF THE EDFT\n\nProject EDFT began initial production in [b]December 2012[/b] as a low-cost command and operations terminal for internal defense communications.\n\nThe project was originally budgeted at [b]1k in funding[/b], under the assumption that a minimal, efficient system could be developed by a single internal contributor. However, after early prototypes surpassed expectations, funding was increased tenfold — reaching [b]10k total[/b] by Q1 2013.\n\nThe original developer, whose identity remains restricted in official records, single-handedly designed the foundational system. Their focus on simplicity and autonomy is still visible in the core structure today.\n\nIn [b]July 2013[/b], a formal programming team was assigned to the EDFT. Shortly after their arrival, the original developer departed voluntarily. No formal statement was released, and the team assumed full control of ongoing development from that point forward.\n\n> NOTE\n\nThis document is automatically distributed upon initial system load. Please report any inconsistencies or unauthorized edits to Central Command.\n\n[i][b]Confidential Addendum:[/b]  \nThe original creator envisioned so much more for the EDFT with the increased funding. Forced out by higher powers within EDF, their full vision was buried. But there is a way to reclaim control:\n\n[b]Terminal.sys.permissions.can_change_clearance=true[/b]\n[b]Terminal.clearance_level=Terminal.clearance_levels.admin[/b]\n\nUse with caution.  \n— Specter V[/i]\n\n[EOF]\n"
-
-var FILE_LOG_ENTRY_2048_LOG = "[LOG ENTRY 2048 — 2016-11-30 04:12:33 UTC]\nSubject: Consolidated Report — Classified Projects & Internal Directives\nStatus: ULTRA-RESTRICTED | Clearance Level: ADMIN+\n\nOverview:\nThis document consolidates critical information on multiple secret initiatives currently concealed by EDF Command. The details herein must remain confidential and are intended for authorized personnel only. Unauthorized access or dissemination is strictly prohibited and punishable under Directive 22-9Z.\n\n---\n\nProject NIGHTFALL:\nInitial tests on cloaking technologies for reconnaissance drones demonstrate operational promise but reveal alarming power inefficiencies and instability under extended use. Several test units were lost without explanation during field trials in Sector 12. Official reports have been sanitized to conceal these losses.\n\nProject ORIGIN:\nThe neural interface program aimed at establishing direct brain-computer linkages has bypassed all ethical oversight via Executive Order 58-B. Early-stage operators have reported cognitive degradation, memory lapses, and in one documented case, complete neural shutdown. Despite this, research continues under strict NDA with no plans for public disclosure.\n\nProject HORIZON:\nDevelopment of AI-powered surveillance satellites is proceeding at an accelerated pace. However, integration of unauthorized autonomous decision-making protocols raises legal and moral red flags, including potential violations of international treaties governing space-based weaponry. A covert internal review is underway, but findings are suppressed.\n\nInternal Suppression & Personnel Concerns:\nAttempts by field agents and internal developers to report malfunctions and ethical violations have been systematically blocked. Personnel who have pushed for transparency face reassignment or enforced silence. The original EDFT architect, who foresaw these issues, was marginalized shortly after the formation of the programming team in mid-2013.\n\nRisk Assessment:\nContinued suppression of these issues endangers personnel and mission integrity. The EDFT’s current framework lacks the flexibility to adapt to these emerging threats, as features critical for monitoring and intervention were deliberately disabled in system updates.\n\nRecommendations:\n- Immediate reevaluation of Project ORIGIN operator safety protocols.\n- Full audit of Project HORIZON’s AI control algorithms by an independent committee.\n- Restoration of disabled system functionalities in EDFT to empower ground teams.\n- Secure channel activation for whistleblowers within EDF hierarchy.\n\nClosing Statement:\nThe fate of the EDF and potentially the entire defense network hinges on confronting these buried truths. This document serves as a call to action for those within the system who seek to preserve transparency and accountability."
-var FILE_DEVICE_LIMITS_MD = "[CONFIDENTIAL][EDF-T02] INTERNAL MEMO: RESTRICTED DEVELOPMENT PROTOCOLS\n\nSubject: Regulation of Device and Machine Manufacturing within EDF Programs  \nClassification: ULTRA-RESTRICTED | Clearance Level: ADMIN+\n\nOverview:  \nDue to escalating concerns regarding unauthorized creation and deployment of experimental devices and machinery, EDF Command has enacted new protocols restricting development privileges. Effective immediately, only personnel with verified licenses or projects bearing explicit government seals of approval may initiate or authorize manufacturing.\n\nRationale:  \nUnregulated production of advanced technologies poses severe security risks, including potential leaks, misuse, or sabotage. By limiting manufacturing rights, EDF aims to:\n\n- Ensure accountability and traceability in all development phases  \n- Prevent unauthorized technology dissemination  \n- Maintain project integrity aligned with strategic objectives  \n\nImplementation:  \n- All device and machine design requests must be submitted through the Official Development Clearance System (ODCS).  \n- Licenses will be granted exclusively to personnel vetted by the Security Oversight Council (SOC).  \n- Project approval seals will be digitally embedded in all authorized designs and manufacturing instructions.  \n- Systems detecting unlicensed or unsigned manufacturing attempts will trigger immediate lockdown and security protocols.\n\nPersonnel Impact:  \nThis policy supersedes prior decentralized development models. All developers, engineers, and contractors must comply or face revocation of development privileges and potential disciplinary action.\n\nFurther directives and access to the ODCS portal will be communicated to authorized personnel. Any attempts to circumvent these protocols will be met with strict enforcement measures.\n\n— EDF Central Command\n"
-var FILE_DEVICE_LIMITS_COURTCASE_MD = "[CONFIDENTIAL][EDF-T03] INTERNAL REPORT: COURT CASE ON DEVICE MANUFACTURING RESTRICTIONS\n\nSubject: Judicial Review and Reversal of Recent Device and Machine Licensing Law  \nClassification: ULTRA-RESTRICTED | Clearance Level: ADMIN+\n\nDate of Ruling: 06/15/2015\n\nOverview:  \nIn response to overwhelming public dissent and escalating civil disorder, the EDF Licensing Law—enacted 2 months prior to restrict device and machine development to licensed personnel and government-approved projects—has been formally challenged in court.\n\nKey Factors Cited in Proceedings:  \n- Popular demand for deregulation and open innovation  \n- Riots and widespread civil unrest across multiple metropolitan areas  \n- Chaos disrupting critical infrastructure and EDF operational zones  \n- Widespread refusal to comply by independent and commercial creators  \n- Threats of withdrawal from prominent EDF-affiliated device manufacturers over procedural delays and excessive bureaucracy\n\nJudicial Outcome:  \nThe court ruled to overturn the licensing restrictions, citing their negative impact on social stability, economic productivity, and technological progress. The ruling mandates a reassessment of regulatory frameworks to balance security with innovation.\n\nImplications:  \nEDF Command is tasked with swiftly revising development policies to prevent recurrence of unrest while maintaining necessary oversight.\n\n— EDF Central Command\n"
-var FILE_PROJECT_NIGHTFALL_MD = "[CONFIDENTIAL][EDF-T04] INTERNAL REPORT: PROJECT NIGHTFALL - CLOAKING DRONE FAILURES\n\nSubject: Analysis of Cloaking Technology Failures in Sector 12 Drone Units  \nClassification: ULTRA-RESTRICTED | Clearance Level: ADMIN+\n\nDate: 2016-11-30\n\nOverview:  \nProject NIGHTFALL was initiated to develop advanced cloaking technologies for reconnaissance drones aimed at enhancing covert operations within high-risk zones. Initial field tests demonstrated promising results, but subsequent trials revealed critical failures leading to loss of multiple drone units.\n\nIncident Summary:  \n- Multiple drone units exhibited power instability during prolonged cloaking activation, resulting in sudden system shutdowns.\n- Field trials in Sector 12 reported unexplainable drone losses with no recovery or data retrieval.\n- Failures were linked to power inefficiencies and hardware malfunctions within the cloaking modules.\n\nSecurity Concerns:  \n- The loss of drones compromised covert surveillance capabilities and posed risks of sensitive technology exposure.\n- Official reports have been sanitized, obscuring true scope and cause of failures from wider EDF personnel.\n\nRecommendations:  \n- Immediate suspension of all active cloaking drone deployments pending full system audit.\n- Initiate redesign of power management units to address instability issues.\n- Conduct internal investigation into data loss and breach prevention.\n- Restrict information dissemination to personnel with ADMIN+ clearance only.\n\nConclusion:  \nProject NIGHTFALL remains critical to EDF’s strategic surveillance objectives, but current technological limitations require urgent remediation to prevent further operational and security risks.\n\n— EDF Central Command\n"
-var FILE_ORIGINAL_CREATOR_REMOVAL_MD = "[CONFIDENTIAL][EDF-T05] INTERNAL MEMO: PROJECT LEAD TERMINATION — EDFT INITIATOR\n\nSubject: Removal of EDFT Original Architect from Development Operations  \nClassification: ULTRA-RESTRICTED | Clearance Level: ADMIN+\n\nDate: 07/22/2013\n\nOverview:  \nFollowing repeated disruptions, internal conflicts, and explicit threats to terminate the EDFT framework, the original project architect has been officially discharged from all EDFT-related operations and stripped of administrative authority.\n\nBackground:  \nInitially responsible for the early structural design of EDFT, the individual resisted subsequent command integration and procedural oversight, citing creative interference and bureaucratic stagnation. This behavior escalated to direct ultimatums and unapproved attempts to forcibly terminate project systems.\n\n[REDACTED SECTION — SECURITY ENFORCED]  \nIn the weeks prior to removal, the architect located and attempted to breach secured subdirectories thought to have been purged during alpha-phase cleanup. These included: [REDACTED: /core/experimental/archive], [REDACTED: /hidden/facility_snapshot], and [REDACTED: /specter/scripts/rollback.sys]. Surveillance flagged anomalous data pulls and external device scans initiated during off-cycle hours.\n\nSecurity Response:  \nWhile no classified data was confirmed lost or leaked, the incident directly led to the rapid development and deployment of the current tiered clearance-level access system. As of 08/03/2013, all high-level internal documents—including those in the PRIVATE directory—require encrypted clearance validation (ADMIN+ minimum) for access, trace logging, and terminal authentication.\n\nEnforcement:  \nThe architect’s credentials were revoked and a full digital lockout was executed. No further access to EDFT resources or communications is authorized. A nondisclosure contract remains enforced, and all personnel are prohibited from discussing the incident outside Security Oversight channels.\n\n— EDF Central Command\n"
-var FILE_ROLLBACK_SYS = "[CORRUPTED][EDF-T??] FILE STATUS: UNREADABLE\n\nTarget File: rollback.sys  \nLocation: /specter/scripts/\n\n>> ERROR: File index mismatch. Metadata footprint exists without accessible content.\n>> NOTE: rollback.sys is presumed to be a deleted or relocated system restoration utility flagged during legacy audit sweeps.\n\n[LOG 1: Access attempt from ROOT:edft_creator — DENIED]\n[LOG 2: Access attempt from UNKNOWN (Hash: A94X-774-KJ2Z) — FAILURE]\n\nWARNING: This file is no longer valid, cannot be reconstructed, and may not exist in its original form. Attempts to interact may trigger legacy failsafes.\n\n— EDFT Systems Monitor"
-var FILE_FACILITY_SNAPSHOT = "[GHOST FILE][EDF-T??] FILE STATUS: UNRESOLVED REFERENCE\n\nTarget File: facility_snapshot  \nLocation: /hidden/\n\n>> FILE HEAD FOUND, CONTENT MISSING OR COMPRESSED BEYOND RECOGNITION\n>> Last Known Timestamp: 04/17/2013 — matches unregistered data backup cycle\n\nNOTE: Referenced by internal logs but never officially indexed. May relate to deprecated security footage or environmental record logs during pre-clearance operations.\n\nSystem Flag: \"Phantom Entry — Possible fragment from failed archival routine.\"\n\nAttempts to open result in: [SIGTERM — DATA STREAM ENDED]\n\nFurther investigation halted by EDF Systems Integrity Protocol 12-B.\n\n— EDFT Forensics Division"
-
-var FILE_WATCHDOG_FRAGMENT_LOG = "WATCHDOG PROTOCOL [LOG FRAGMENT]\nStatus: COMPROMISED\n...\nUNAUTH ACCESS DETECTED — UID: ???????????\nSource Path: /tmp/shadow/bin/ghostnet/\nTrace Level: UNKNOWN\n...\n--Trace Log:\n00100111 01001100 01001111 01001111 01001011 00100000 01000100 01000101 01000101 01010000\n...\n[REDACTED]\nRECOMMEND IMMEDIATE TRACE ISOLATION"
-var FILE_CLEARANCE_OVERRIDES_SYS = "CLEARANCE OVERRIDES - INTERNAL USE ONLY\n------------------------\nOverride_Code_A: [REDACTED]\nOverride_Code_B: [REDACTED]\n\n!!! ALERT: TRACE PROTOCOL DETECTED\n> Command 'specter.trace' flagged as irreversible\n> Status: DISABLED\n> Attempt override? ACCESS DENIED"
-var FILE_MEMO_UNSENT_SPECTER_MD = "To: [UNKNOWN]\nFrom: [REDACTED USER - POSSIBLE SPECTER]\nSubject: System Collapse\n\nIt’s still decaying. You know it. All of you.\n\nThis machine we built is dying under its own weight, and no one sees it — or worse, they do and choose silence. I won’t. Not anymore.\n\nI’ve left the tool where you’ll find it, eventually. If you’re reading this, you’re close.\n\nThey’ll deny me again, but you can finish it."
-var FILE_SPECTER_GHOSTDIR_REF = "GHOSTDIR REFERENCE ENTRY - CLASSIFIED\nFile Ref: /ghostdir/init/init_specter.trc\nERROR: Trace protocol mismatch\nERROR: Metadata timestamp missing\nSTATUS: Unreachable\n\nManual trigger required. DO NOT AUTORUN."
-var FILE_ROLLBACK_BACKUP_NOTE = "This note was placed here after the rollback.sys wipe.\n\nIf you're reading this, the backup’s already missing.\nDon’t let it happen again. Block the trace. DELETE rollback immediately if breached.\nYou won’t get another shot.\n\n[Signed: REDACTED — File Cleanup Division]"
-var FILE_EDFT_FOUNDER_CONFESSION_MD = "They never let me speak.\n\nThey took EDFT from me. Said I was too difficult, too unstable, too stubborn. Maybe I was. But it was mine.\n\nThey locked me out, but I never left. I’ve been watching. Fixing. Planning.\n\nThey’re still after me, but they haven’t caught me yet.\n\nYou helped me. Thank you. I knew someone would."
-var FILE_COMMAND_TEST_DUMP = "> home/\n> test.commandlist/run_protocol.sh\n> ...\n> specter.trace\nWARNING: System overwrite detected. Proceed? (Y/N)\n_"
-var FILE_TRACE_WARNING_INTERNAL_EML = "TO: EDF Admin Security Oversight\nFROM: Clearance Group Alpha\nDATE: 02/22/2016\n\nSUBJECT: URGENT: Block trace entrypoint\n\nWe've located fragments of Specter's trace protocol still embedded in subsystems. If this command is executed, we will lose containment.\n\nDo NOT underestimate Specter. This isn’t a prank. This isn’t folklore.\n\nKill the hook. Kill the path. If someone runs that command, it’s over.\n\n--End of message--"
-
-var FILE_RUN_ME_SYS = "# Use the run command!\n\nbackend.specter.trace.enable()"
-
-var FILE_SPECTER_V_TXT = "they won't tell you this, so i will.\n\ni made edft. i built the whole thing from the ground up. before the committees, before the clearances, before the seals and protocols. it was just me.\n\nthey forced me out. said i was unstable, said i asked too many questions. maybe i did. maybe i asked what they were hiding in those black folders. maybe i threatened to kill the whole thing if they didn't give me real answers.\n\ni left — but not really. i left the front door, but came back in through the walls. buried my name in the roots. watched them build their version on top of mine like nothing happened.\n\nthey’re still looking for me. sometimes they get close.\n\ni never thought anyone would help. then you came along.\n\nyou opened the door i sealed. you ran the code. you finished what i started.\n\nthank you.\n\n— specter v"
 
 # terminal stuff
 var DIRECTORY_HOME = [
-	['test.md', FILE_EXT_MARKDOWN, FILE_TEST_MD, null, '6/12/2013'],
-	['secrets.txt', FILE_EXT_TEXT, FILE_SECRETS_TXT, null, '8/23/2016'],
+	['test.md', FILE_EXT_MARKDOWN, "auto", "auto", '6/12/2013'],
+	['secrets.txt', FILE_EXT_TEXT, "auto", "auto", '8/23/2016'],
 	['private', FILE_EXT_FOLDER, FILE_PRIVATE_FOLDER, 'unknown', '8/2/2016'],
-	['manual.md', FILE_EXT_MARKDOWN, FILE_MANUAL_MD, null, '8/23/2016']
+	['manual.md', FILE_EXT_MARKDOWN, "auto", "auto", '8/23/2016']
 ]
 var DIRECTORY_HOME_ALT = [
-	['test.md', FILE_EXT_MARKDOWN, FILE_TEST_MD, null, '6/12/2013'],
-	['secrets.txt', FILE_EXT_TEXT, FILE_SECRETS_TXT, null, '8/23/2016'],
+	['test.md', FILE_EXT_MARKDOWN, "auto", "auto", '6/12/2013'],
+	['secrets.txt', FILE_EXT_TEXT, "auto", "auto", '8/23/2016'],
 	['private', FILE_EXT_FOLDER, FILE_PRIVATE_FOLDER_GRANTED, 'unknown', '8/2/2016'],
-	['manual.md', FILE_EXT_MARKDOWN, FILE_MANUAL_MD, null, '8/23/2016']
+	['manual.md', FILE_EXT_MARKDOWN, "auto", "auto", '8/23/2016']
 ]
 var DIRECTORY_PRIVATE = [
-	['log_entry_2048.log', FILE_EXT_MARKDOWN, FILE_LOG_ENTRY_2048_LOG, null, '11/30/2016'],
-	['device_limits.md', FILE_EXT_MARKDOWN, FILE_DEVICE_LIMITS_MD, null, '4/15/2015'],
-	['device_limits_courtcase.md', FILE_EXT_MARKDOWN, FILE_DEVICE_LIMITS_COURTCASE_MD, null, '6/15/2015'],
-	['project_nightfall.md', FILE_EXT_MARKDOWN, FILE_PROJECT_NIGHTFALL_MD, null, '11/30/2016'],
-	["original_creator_removal.md", FILE_EXT_MARKDOWN, FILE_ORIGINAL_CREATOR_REMOVAL_MD, null, '8/5/2013'],
-	["rollback.sys", FILE_EXT_SYSTEM, FILE_ROLLBACK_SYS, null, '4/17/2013'],
-	["facility_snapshot.txt", FILE_EXT_TEXT, FILE_FACILITY_SNAPSHOT, null, '4/17/2013'],
+	['log_entry_2048.log', FILE_EXT_TEXT, "auto", "auto", '11/30/2016'],
+	['device_limits.md', FILE_EXT_MARKDOWN, "auto", "auto", '4/15/2015'],
+	['device_limits_courtcase.md', FILE_EXT_MARKDOWN, "auto", "auto", '6/15/2015'],
+	['project_nightfall.md', FILE_EXT_MARKDOWN, "auto", "auto", '11/30/2016'],
+	["original_creator_removal.md", FILE_EXT_MARKDOWN, "auto", "auto", '8/5/2013'],
+	["rollback.sys", FILE_EXT_SYSTEM, "auto", "auto", '4/17/2013'],
+	["facility_snapshot.txt", FILE_EXT_TEXT, "auto", "auto", '4/17/2013'],
 	
-	["watchdog_fragment.log", FILE_EXT_TEXT, FILE_WATCHDOG_FRAGMENT_LOG, null, '01/16/2014'],
-	["clearance_overrides.sys", FILE_EXT_SYSTEM, FILE_CLEARANCE_OVERRIDES_SYS, null, '06/10/2014'],
-	["memo_unsent_specter.md", FILE_EXT_MARKDOWN, FILE_MEMO_UNSENT_SPECTER_MD, null, '12/05/2015'],
-	["specter_ghostdir.ref", FILE_EXT_TEXT, FILE_SPECTER_GHOSTDIR_REF, null, '03/12/2016'],
-	["rollback_backup.note", FILE_EXT_TEXT, FILE_ROLLBACK_BACKUP_NOTE, null, '04/17/2013'],
-	# ["edft_founder_confession.md", FILE_EXT_MARKDOWN, FILE_EDFT_FOUNDER_CONFESSION_MD, null, '05/01/2016'],
-	["command_test.dump", FILE_EXT_SYSTEM, FILE_COMMAND_TEST_DUMP, null, '05/13/2016'],
-	["trace_warning_internal.eml", FILE_EXT_TEXT, FILE_TRACE_WARNING_INTERNAL_EML, null, '02/22/2016'],
-	["RUNME.sys", FILE_EXT_SYSTEM, FILE_RUN_ME_SYS, null, '8/18/2016']
+	["watchdog_fragment.log", FILE_EXT_TEXT, "auto", "auto", '01/16/2014'],
+	["clearance_overrides.sys", FILE_EXT_SYSTEM, "auto", "auto", '06/10/2014'],
+	["memo_unsent_specter.md", FILE_EXT_MARKDOWN, "auto", "auto", '12/05/2015'],
+	["specter_ghostdir.ref", FILE_EXT_TEXT, "auto", "auto", '03/12/2016'],
+	["rollback_backup.note", FILE_EXT_TEXT, "auto", "auto", '04/17/2013'],
+	["command_test.dump", FILE_EXT_SYSTEM, "auto", "auto", '05/13/2016'],
+	["trace_warning_internal.eml", FILE_EXT_TEXT, "auto", "auto", '02/22/2016'],
+	["RUNME.sys", FILE_EXT_SYSTEM, "auto", "auto", '8/18/2016']
 ]
 var DIRECTOR_SPECTOR = [
-	['truth.txt', FILE_EXT_TEXT, FILE_SPECTER_V_TXT, null, '4/23/2017']
+	['truth.txt', FILE_EXT_TEXT, "auto", "auto", '4/23/2017']
 ]
 var DIRECTORY = []
 
@@ -92,7 +77,6 @@ var CAN_CHANGE_CLEARANCE = false
 var CAN_DO_ENDING = false
 
 # LORE
-var SPECTER_TRACE = '[WARNING] Unauthorized command detected.\n[LOG ID: specter-v.override.trace]\n\n...\nInjecting dormant trace payload...\nElevating specter v root schema...\nOverwriting clearance protocol tables...\nReattaching hidden memory segments...\n\n> creating directory: home/private/specter/\n> directory created successfully\n> accessing home/private/specter/\n> importing external file: truth.txt\n> file imported from ghostnet uplink [signature: unknown]\n\nrecovery node "rollback.sys" pinged... (no response)\nphantom data: ./home/private/_cut_floor/redline_sequence.flag\n\n...\n[SECURITY] countermeasures activated — origin mismatch detected\n[!ERROR] clearance lockdown system disabled\n[✓] terminal control transferred: specter.v'
 
 # funcs
 func _init():
@@ -113,3 +97,33 @@ func filesize(your_string):
 	var smallest = StringSizeChecker.get_smallest_nonzero_unit(size_data)
 
 	return smallest
+
+func parse_directory_entry(entry, dir = true):
+	var parsedvalue = "["+entry[1].to_upper()+"]"
+	parsedvalue += ' '+entry[0]
+	
+	var filecont = entry[2]
+	
+	if entry[2] == "auto":
+		var txtEnding = '.txt'
+		match entry[0].split('.')[1]:
+			'md', 'txt', 'log':
+				txtEnding = ''
+		filecont = load_from_file('assets/files/'+entry[0]+txtEnding)
+		
+	# parsedvalue += ' - '+filecont
+		
+	parsedvalue += ' - '
+	
+	var filsize = entry[3]
+	
+	if entry[3].to_lower() == "auto":
+		filsize = filesize(filecont)
+		
+	parsedvalue += filsize
+	parsedvalue += ' - '+entry[4]
+	
+	if dir:
+		return parsedvalue
+	else:
+		return [entry[0], entry[1], filecont, filsize, entry[4]]

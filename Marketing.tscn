@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://ecneu6wurjiw"]
 
-[ext_resource type="Shader" uid="uid://bfdt70142kbuu" path="res://assets/crt.gdshader" id="1_eekv5"]
+[ext_resource type="Shader" uid="uid://bfdt70142kbuu" path="res://assets/shaders/crt.gdshader" id="1_eekv5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1wybe"]
 

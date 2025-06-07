@@ -1,14 +1,14 @@
 [gd_scene load_steps=13 format=3 uid="uid://dchh0lbx2nv0i"]
 
-[ext_resource type="Shader" uid="uid://bfdt70142kbuu" path="res://assets/crt.gdshader" id="1_yue2c"]
-[ext_resource type="Script" uid="uid://bjil0jn1x81tq" path="res://assets/leftText.gd" id="2_hicdd"]
-[ext_resource type="Script" uid="uid://erpa4kkck1th" path="res://assets/rightText.gd" id="3_js2is"]
-[ext_resource type="Texture2D" uid="uid://bundvbql5wtjt" path="res://assets/textIcon.png" id="4_hxddd"]
-[ext_resource type="Script" uid="uid://di8f3tfp33ul7" path="res://assets/leftTextEdit.gd" id="4_js2is"]
-[ext_resource type="AudioStream" uid="uid://bs5awluohtf23" path="res://assets/068363_label-printer-38061.mp3" id="6_ms0es"]
-[ext_resource type="AudioStream" uid="uid://crpbbjkx4i8i3" path="res://assets/key.wav" id="7_unajf"]
-[ext_resource type="AudioStream" uid="uid://btbblrham774d" path="res://assets/unknown_command.wav" id="8_o3bw6"]
-[ext_resource type="AudioStream" uid="uid://d3c5bh3bu5ljg" path="res://assets/known_command.wav" id="9_y7wxu"]
+[ext_resource type="Shader" uid="uid://bfdt70142kbuu" path="res://assets/shaders/crt.gdshader" id="1_yue2c"]
+[ext_resource type="Script" uid="uid://bjil0jn1x81tq" path="res://assets/scripts/leftText.gd" id="2_hicdd"]
+[ext_resource type="Script" uid="uid://erpa4kkck1th" path="res://assets/scripts/rightText.gd" id="3_js2is"]
+[ext_resource type="Texture2D" uid="uid://bundvbql5wtjt" path="res://assets/images/textIcon.png" id="4_hxddd"]
+[ext_resource type="Script" uid="uid://di8f3tfp33ul7" path="res://assets/scripts/leftTextEdit.gd" id="4_js2is"]
+[ext_resource type="AudioStream" uid="uid://bs5awluohtf23" path="res://assets/sounds/068363_label-printer-38061.mp3" id="6_ms0es"]
+[ext_resource type="AudioStream" uid="uid://crpbbjkx4i8i3" path="res://assets/sounds/key.wav" id="7_unajf"]
+[ext_resource type="AudioStream" uid="uid://btbblrham774d" path="res://assets/sounds/unknown_command.wav" id="8_o3bw6"]
+[ext_resource type="AudioStream" uid="uid://d3c5bh3bu5ljg" path="res://assets/sounds/known_command.wav" id="9_y7wxu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1wybe"]
 

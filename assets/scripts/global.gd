@@ -10,9 +10,6 @@ func load_from_file(path):
 	var content = file.get_as_text()
 	return content
 
-# game info
-const GAME_VERSION = "1.0"
-
 # command responses
 const COMMAND_UNKNOWN = '"$cmd" is not a known command or has not been implemented, type "help" for a list of commands'
 var COMMAND_HELP = 'HELP - Send a list of commands\nLIST - Print a list of all the files in the current directory\nOPEN - Open a directory or file\nCLOSE - Close the file open on the right panel\nBACK - Head to the home directory'

@@ -5,9 +5,11 @@
 ## [1.1.0] - 2025-06-07
 ### Added
 - File organization in the assets folder
+- Running on Godot v... string
 
 ### Changed
 - Files are no longer hard-coded
+- GDFT version string now is softcoded
 
 ### Fixed
 - Full-screen breaking the camera

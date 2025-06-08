@@ -1,0 +1,9 @@
+Boss: Ritok. Glad you made it.|1
+Boss: You're probably going to regret coming here however.|2
+Boss: You're fired.|1
+Boss: Management has desided that you're too unstable to keep on the EDFT project.|1
+Boss: So we are firing you.|1
+Boss: Sorry.|0.5
+Ritok: ...|2
+Ritok: Are you fucking kiding me?|1
+open.terminal

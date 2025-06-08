@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://d0vk5l38u7t7f" path="res://entities/employee.tscn" id="2_7qhrm"]
 [ext_resource type="Texture2D" uid="uid://bovx11t8rha7n" path="res://assets/images/tile.png" id="3_v2bdg"]
 [ext_resource type="PackedScene" uid="uid://c61lolblblgxh" path="res://entities/boss.tscn" id="4_cuk6w"]
-[ext_resource type="Script" uid="uid://bprb8epjqd178" path="res://assets/scripts/boss_interation.gd" id="5_7lhrj"]
+[ext_resource type="Script" uid="uid://bprb8epjqd178" path="res://assets/scripts/interactable_npc.gd" id="5_7lhrj"]
 [ext_resource type="AudioStream" uid="uid://8lm5xryyphcg" path="res://assets/sounds/video-game-text-330163.mp3" id="6_2k7t8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1wybe"]
@@ -108,8 +108,13 @@ tile_set = SubResource("TileSet_7lhrj")
 position = Vector2(231, -304)
 scale = Vector2(-4, 4)
 
-[node name="Area2D" type="Area2D" parent="Boss"]
+[node name="Area2D" type="Area2D" parent="Boss" node_paths=PackedStringArray("textbar", "rich_text_label", "area_2d", "typing_sound")]
 script = ExtResource("5_7lhrj")
+textbar = NodePath("../../Employee/Camera2D/Textbar")
+rich_text_label = NodePath("../../Employee/Camera2D/Textbar/RichTextLabel")
+area_2d = NodePath("../../Employee/Area2D")
+typing_sound = NodePath("../../RightTypin")
+dialogue_path = "boss_talk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boss/Area2D"]
 position = Vector2(13.75, -2.125)

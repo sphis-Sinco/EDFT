@@ -1,9 +1,9 @@
 {
-  "version": "1.2.3",
-  "windows_url": "https://github.com/sphis-Sinco/EDFT/releases/download/1.2.1/windows-v1.2.1.zip",
+  "version": "1.2.4",
+  "windows_url": "https://github.com/sphis-Sinco/EDFT/releases/download/1.2.4/windows-v1.2.4.zip",
   "windows_exe": "windows/EDFT.exe",
-  "linux_url": "https://github.com/sphis-Sinco/EDFT/releases/download/1.2.1/linux-v1.2.1.zip",
+  "linux_url": "https://github.com/sphis-Sinco/EDFT/releases/download/1.2.4/linux-v1.2.4.zip",
   "linux_exe": "linux/EDFT.x86_64",
-  "web_url": "https://github.com/sphis-Sinco/EDFT/releases/download/1.2.3/web-v1.2.3.zip",
+  "web_url": "https://github.com/sphis-Sinco/EDFT/releases/download/1.2.4/web-v1.2.4.zip",
   "web_exe": "web/index.html"
 }

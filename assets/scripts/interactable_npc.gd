@@ -15,7 +15,7 @@ var dialogue_index = -1
 func _ready():
 	connect("area_entered", _on_area_entered)
 	connect("area_exited", _on_area_exited)
-	dialogue_list = Global.load_from_file('assets/dialogue/'+dialogue_path+'.txt').split('\n')
+	dialogue_list = load_from_file('assets/dialogue/'+dialogue_path+'.txt').split('\n')
 	print_rich(dialogue_list)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -110,3 +110,12 @@ func call_timer(time = 10, endfunc = Callable(self, "")):
 	add_child(timer)
 	timer.start()
 	timer.timeout.connect(endfunc)
+
+func save_to_file(path, content):
+	var file = FileAccess.open(path, FileAccess.WRITE)
+	file.store_string(content)
+
+func load_from_file(path):
+	var file = FileAccess.open(path, FileAccess.READ)
+	var content = file.get_as_text()
+	return content
